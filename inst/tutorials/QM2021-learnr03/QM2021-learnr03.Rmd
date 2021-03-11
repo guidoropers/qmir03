@@ -15,28 +15,36 @@ library(tidyverse)
 gradethis::gradethis_setup()
 
 ## Data
-data(ep_elections_dw.rda)
-ep_elections <- ep_elections_dw
-rm(ep_elections_dw)
+data(df_learnr03_ep_elections.rda)
+ep_elections <- df_learnr03_ep_elections
+rm(df_learnr03_ep_elections)
 ```
 
 ## Introduction
 
-This week we have talked about data wrangling. 
+This week, we have started to wrangle some data! We learned how to subset our data set to the variables and observations that we need for our analysis, how to add new variables, order observations and how to calculate summary statistics.
 
-Insert a bit more of intro prose here.
+In this tutorial, you'll refresh and review what we have learned this week.
 
 ### Packages
 
-For the following exercises, you'll need the **tidyverse** package. You should already have this packages installed, so you load it as usual by running the code below:
+For the following exercises, you'll need the **tidyverse** package, so go ahead and load it:
 
 ```{r load-packages, exercise=TRUE}
+___(tidyverse)
+```
+
+```{r load-packages-solution}
 library(tidyverse)
+```
+
+```{r load-packages-check}
+grade_this_code("The tidyverse is now loaded!")
 ```
 
 ## Data
 
-The data set for this exercise (`ep_elections`) contains information on voter turnout and total votes cast in elections for the European Parliament.
+The data set for this exercise (`ep_elections`) contains information on voter turnout and the number of total votes cast in elections for the European Parliament.
 
 Below you find an overview of the data set.
 
@@ -48,144 +56,162 @@ Below you find an overview of the data set.
 | `voter_turnout` | Voter turnout
 | `total_vote` | Total number of voters who have turned out
 
+### First look at the data
+
+You can take a peek at the data using the `glimpse()` function in the box below.
+
+```{r glimpse-data, exercise=TRUE}
+glimpse(ep_elections)
+```
+
 ## Exercises
 
-```{r q1, echo = FALSE}
+```{r q1, echo=FALSE}
+question("You have a data set that contains information on countries, years and the name of the party with the majority of votes in the last elections. How many columns does this data set have?",
+  answer("Three", correct = TRUE),
+  answer("Nine"),
+  answer("One"),
+  answer("Depends on the number of countries and years in the data set"),
+  allow_retry = TRUE,
+  random_answer_order = TRUE,
+  incorrect = "If you need help, check Wickham/Grolemund (2017) Chapter 3."
+)
+```
+
+```{r q2, echo=FALSE}
+question("Which of the following functions allows you to pick variables based on their name?",
+  answer("select()", correct = TRUE),
+  answer("filter()", message = "filter() allows you to select observations based on their values, not variables based on their name. Check Wickham/Grolemund (2017) Chapter 5 or the lecture and lab materials for more information and examples."),
+  allow_retry = TRUE,
+  random_answer_order = TRUE
+)
+```
+
+```{r q3, echo=FALSE}
 question("What does a relational operator do?",
-  answer("It tests the relationship between entities (values etc.)", correct = T),
+  answer("It tests the relationship between entities (values etc.)", correct = TRUE),
   answer("It checks whether vectors contain NAs"),
   answer("It executes code chunks that are related to one another"),
+  answer("It links different data sets"),
   allow_retry = TRUE,
   random_answer_order = TRUE,
-  incorrect = "Hint: Check the lecture materials."
-)
-
-```
-
-```{r q2, echo = FALSE}
-question("You have a dataset that contains information on countries, years and the name of the party with the majority of votes in the 
-  last elections. How many columns do you have?",
-  answer("Nine"),
-  answer("Three", correct = T),
-  answer("Depends on the number of years and countries in the data"),
-  allow_retry = TRUE,
-  random_answer_order = TRUE,
-  incorrect = "Hint: Check Wickham/Grolemund (2017) Chapter 3."
-)
-
-```
-
-```{r q3, echo = FALSE}
-question("What does piping do?",
-  answer("It calculates descriptive statistics in R"),
-  answer("It allows you to combine certain dplyr functions in a specific order", correct = T),
-  answer("It allows you to write your own estimator"),
-  allow_retry = TRUE,
-  random_answer_order = TRUE,
-  incorrect = "Hint: Check out the \"magrittr\" package."
-)
-
-```
-
-```{r q4, echo = FALSE}
-question("What command do you use in order to create a new variable which is added to all observations in the dataset 
-  (using the \"dplyr\" package)?",
-  answer("mutate()", correct = T),
-  answer("summarize()"),
-  answer("filter()"),
-  allow_retry = TRUE,
-  random_answer_order = TRUE,
-  incorrect = "Hint: Check Wickham/Grolemund (2017) Chapter 5."
+  incorrect = "If you need help, check Wickham/Grolemund (2017) Chapter 5 or the lecture material."
 )
 ```
 
-```{r q5, echo = FALSE}
-question("What does x|y mean?",
-  answer("x not y"),
-  answer("x or y", correct = T),
-  answer("x and y"),
+```{r q4, echo=FALSE}
+question("What does x | y mean?",
+  answer("x or y", correct = TRUE),
+  answer("x not y", message = "x not y would be written as x & !y. Check Wickham/Grolemund (2017) Chapter 5 or the lecture material for more information."),
+  answer("x and y", message = "x and y would be written as x & y. Check Wickham/Grolemund (2017) Chapter 5 or the lecture material for more information."),
   allow_retry = TRUE,
-  random_answer_order = TRUE,
-  incorrect = "Hint: Check Wickham/Grolemund (2017) Chapter 5."
+  random_answer_order = TRUE
 )
 ```
 
-```{r q6, echo = FALSE}
-question("You have a dataset that contains the following variables: a country ID variable, a year variable and a voter_turnout variable. 
-  You would like to calculate the median value of voter turnout per year. What do you do?",
-  answer("data %>% group_by(year) %>% mutate(median_voter_turnout = median(voter_turnout)", correct = T),
-  answer("data %>% group_by(country, year) %>% filter(median_voter_turnout = median(voter_turnout)"),
-  answer("data %>% group_by(country, year) %>% filter(median_voter_turnout = mean(voter_turnout)"),
+```{r q5, echo=FALSE}
+question("What does the pipe operator do?",
+  answer("It specifies a sequence of dplyr functions", correct = TRUE),
+  answer("It calculates descriptive statistics"),
+  answer("It imports data sets"),
   allow_retry = TRUE,
   random_answer_order = TRUE,
-  incorrect = "Hint: Think about what each of the operations is doing."
+  incorrect = "If you need help, check Wickham/Grolemund (2017) Chapter 18 or the lecture material."
 )
 ```
 
-Let's try some exercises in R. In the lab session, we have seen some commands on how manipulate data. Throughout the next set of questions, you will apply some of the things we have learned in class. You will be required to run some code, and will be asked multiple-choice questions that you need to answer based on the output of your code.
-
-How many numeric variables does the data set contain?
-
-```{r exercise1, exercise = TRUE}
-
+```{r q6, echo=FALSE}
+question("Which dplyr function allows you to add a new variable to all observations in your data set?",
+  answer("mutate()", correct = TRUE),
+  answer("summarise()", message = "summarise() calculates summary statistics by aggregating your data set. The resulting variable is therefore not added to all observations. Check out Wickham/Grolemund (2017) Chapter 5 or the lecture and lab materials for more information and examples."),
+  answer("filter()", message = "filter() picks observations based on their value(s). Check out Wickham/Grolemund (2017) Chapter 5 or the lecture and lab materials for more information and examples."),
+  answer("add()", message = "add() does not exist. Check out Wickham/Grolemund (2017) Chapter 5 or the lecture and lab materials for more information and examples of the dplyr functions that exist."),
+  allow_retry = TRUE,
+  random_answer_order = TRUE
+)
 ```
- 
+
 ```{r q7, echo=FALSE}
-question_text(
-  "How many numeric variables are there?",
-  answer("3", correct = TRUE),
-  answer("Three", correct = TRUE),
-  answer("three", correct = TRUE),
+question("You have a data set that contains the following variables: a country ID variable, a year variable and a voter turnout variable. You would like to add a variable on the median value of voter turnout per year. What do you do?",
+  answer("data %>% group_by(year) %>% mutate(median_voter_turnout = median(voter_turnout))", correct = TRUE),
+  answer("data %>% group_by(country, year) %>% mutate(median_voter_turnout = median(voter_turnout))", message = "This code snippet would calculate median voter turnout by country and year, we want the value to be calculated by year across all countries, however."),
+  answer("data %>% group_by(year) %>% mutate(median_voter_turnout = max(voter_turnout))", message = "This code snippet would assign the maximum value of voter turnout for each year instead of the median voter turnout."),
   allow_retry = TRUE,
-  incorrect = "Hint: Use the \"summary()\" or \"class()\" commands or have a look at the object in the environment pane."
-
+  random_answer_order = TRUE
 )
-``` 
+```
 
-It seems that something went wrong with the variable `voter_turnout` when reading in the data. 
-  Turnout should be measured in percentage. Therefore, divide the variable by 100 and save it in a new variable 
-  called `voter_turnout_perc`. Then, calculate the median of `total_vote` per country. What is the median number of 
-  `total_vote` in Germany? Round to the integer.
+Now, you'll begin to work with the `ep_elections` data.
 
-```{r exercise2, exercise = TRUE}
+It seems that something went wrong with the variable `voter_turnout` when importing the data. Turnout should have been measured in percent. Have a look at the variable; then, divide it by 100 and save the result in a new variable called `voter_turnout_pc`. 
 
+```{r exercise1, exercise=TRUE}
+
+```
+
+Then, calculate the average `voter_turnout_pc` per country:
+
+```{r create-voter-turnout-pc-variable}
+ep_elections <- mutate(ep_elections, voter_turnout_pc = voter_turnout / 100)
+```
+
+```{r exercise2, exercise=TRUE, exercise.setup = "create-voter-turnout-pc-variable"}
+
+```
+
+<div id="exercise2-hint">
+**Hint:** You may want to use **dplyr**'s `group_by()`, `summarise()` and `filter()` functions.
+</div>
+
+```{r exercise2-sol, echo=FALSE, eval=FALSE}
+ep_elections %>%
+  group_by(country) %>%
+  summarise(mean = mean(voter_turnout_pc, na.rm = TRUE)) %>%
+  filter(country == "Germany")
+
+# or (semi-correct)
+ep_elections %>%
+  filter(country == "Germany") %>%
+  summarise(mean = mean(voter_turnout_pc, na.rm = TRUE))
 ```
 
 ```{r q8, echo = FALSE}
 question_text(
-  "What is the median? Please provide the number.",
-  answer("28088025", correct = T),
+  "What is the average voter turnout in Germany? Enter the number, rounded to two digits after the decimal.",
+  answer("53.98", correct = TRUE),
   allow_retry = TRUE,
-  incorrect = "Hint: You need \"group_by()\", \"mutate()\" and \"filter()\" for this question."
-
+  incorrect = "Have you entered the number with two digits after the decimal?"
 )
+```
+
+Next, calculate the number of eligible voters for each election in each country based on the variables `voter_turnout_pc` and `total_vote`. Add the result as a new variable called `eligible_voters`. The formula to calculate the number of eligible voters is a simple rule of three. Keep in mind that the variable `voter_turnout_pc` is measured in percent. 
+
+```{r exercise3-sol, echo=FALSE, eval=FALSE}
+ep_elections <- ep_elections %>%
+  group_by(country, year) %>%
+  mutate(eligible_voters = (total_vote/voter_turnout_pc) * 100) 
+
+ep_elections %>% filter(country == "Germany" & year == "2009")
+```
+
+```{r exercise3, exercise=TRUE, exercise.setup="create-voter-turnout-pc-variable"}
 
 ```
 
+<div id="exercise3-hint">
+**Hint:** The formula to calculate the number of eligible voters is `(total_vote/voter_turnout_pc) * 100`.
+</div>
 
-In the next question, we want you to calculate the number of eligible voters for each election and country from the `voter_turnout_perc` and the `total_vote` variables. Save the result as a new variable called `eligible_voters`. Try to figure out the formula for yourself (it is simple rule of three with percentages). If you are having trouble figuring out the formula you can use *Hint*. 
-  
-```{r prepare-elig-vote, include=FALSE}
-ep_elections <- mutate(ep_elections, voter_turnout_perc = voter_turnout / 100)
-```
-  
-  
-```{r elig-vot, exercise=TRUE, exercise.setup="prepare-elig-vote"}
-# How many eligible voters are there in Bulgaria in 2009?
-
-```
-  
 ```{r q9, echo = F}
 question_text(
-  "How many eligible voters are there in Bulgaria in 2009? Enter the number without separators (such as . or ,) and round to the next lowest integer.",
-  answer("6684679", correct = TRUE),
+  "How many voters have been eligible to vote in the European Parliament elections in Germany in 2009? Enter the number without separators (such as . or ,) and round to the next lowest integer.",
+  answer("62222357", correct = TRUE),
   allow_retry = TRUE,
-  incorrect = "Hint: Use the \"summary()\" or \"class()\" commands or have a look at the object in the environment pane."
+  incorrect = "Are you sure you have specified the formula correctly?"
 
 )
 
 ```
-
 
 ## Submit
 
@@ -194,5 +220,5 @@ learnrhash::encoder_logic()
 ```
 
 ```{r encode, echo=FALSE}
-learnrhash::encoder_ui(default_ui(url = "https://docs.google.com/spreadsheets/d/1KNdne1kXXIHybooh0Z71SYrVSd1NBfBTm60PhYeTsnQ/edit?usp=sharing"))
+learnrhash::encoder_ui(default_ui(url = "https://someurl.com"))
 ```
