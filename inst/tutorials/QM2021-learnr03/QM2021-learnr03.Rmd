@@ -33,6 +33,7 @@ In this tutorial, you'll refresh and review what we have learned this week.
 For the following exercises, you'll need the **tidyverse** package, so go ahead and load it:
 
 ```{r load-packages, exercise=TRUE}
+
 ___(tidyverse)
 ```
 
