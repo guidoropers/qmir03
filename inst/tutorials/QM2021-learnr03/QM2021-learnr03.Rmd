@@ -66,10 +66,6 @@ You can take a peek at the data using the `glimpse()` function in the box below.
 glimpse(ep_elections)
 ```
 
-## Exercises
-
-###
-
 ```{r q1, echo=FALSE}
 question("As you have just seen, the data set contains information on countries, election type, years, voter turnout and the total number of votes. How many columns does this data set have?",
          answer("One"),
@@ -81,6 +77,9 @@ question("As you have just seen, the data set contains information on countries,
          incorrect = "Not quite. If you need help, check Wickham/Grolemund (2017) Chapter 3."
          )
 ```
+
+
+## Exercises
 
 ###
 
