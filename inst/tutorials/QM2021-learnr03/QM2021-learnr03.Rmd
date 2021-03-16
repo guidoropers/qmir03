@@ -46,7 +46,7 @@ grade_this_code("The tidyverse is now loaded!")
 
 ## Data
 
-The data set for this exercise (`ep_elections`) contains information on voter turnout and the number of total votes cast in elections to the European Parliament.
+The data set for this tutorial (`ep_elections`) contains information on voter turnout and the number of total votes cast in elections to the European Parliament.
 
 Below you find an overview of the data set.
 
@@ -71,10 +71,10 @@ glimpse(ep_elections)
 ###
 
 ```{r q1, echo=FALSE}
-question("You have a data set that contains information on countries, years and the name of the party with the majority of votes in the last elections. How many columns does this data set have?",
+question("As you have just seen, the data set contains information on countries, election type, years, voter turnout and the total number of votes. How many columns does this data set have?",
          answer("One"),
-         answer("Three", correct = TRUE),
-         answer("Nine"),
+         answer("Five", correct = TRUE),
+         answer("Six"),
          answer("Depends on the number of countries and years in the data set"),
          allow_retry = TRUE,
          random_answer_order = FALSE,
@@ -220,6 +220,12 @@ ep_elections %>%
 ep_elections %>%
   group_by(country) %>%
   summarise(mean = mean(voter_turnout_pc, na.rm = TRUE)) %>%
+  filter(mean == min(mean))
+
+# or
+ep_elections %>%
+  group_by(country) %>%
+  summarise(mean = mean(voter_turnout_pc, na.rm = TRUE)) %>%
   arrange(mean)
 ```
 
@@ -279,5 +285,5 @@ learnrhash::encoder_logic()
 ```
 
 ```{r encode, echo=FALSE}
-learnrhash::encoder_ui(default_ui(url = "https://someurl.com"))
+learnrhash::encoder_ui(default_ui(url = "https://ilias.uni-mannheim.de/goto.php?target=svy_1115479&client_id=ILIAS"))
 ```
